@@ -4,6 +4,10 @@ import plotly.express as px
 
 df_sector = pd.read_csv("data/emission_sectors.csv")
 df_ghg = pd.read_csv("data/emission_gases.csv")
+df_eco = pd.read_csv("data/emission_economique.csv")
+df_import = pd.read_csv("data/emission_importation.csv")
+df_eco.iloc[:,1:] = df_eco.iloc[:,1:].div(1000).astype('float')
+df_import.iloc[:,1:] = df_import.iloc[:,1:].div(1000).astype('float')
 
 #choice = st.sidebar.radio("Select data view:", ["Sectoral Emissions", "Greenhouse Gas Types"])
 st.title("Emissions de Gaz à Effet de Serre")
@@ -20,10 +24,21 @@ st.sidebar.markdown(
     """, unsafe_allow_html=True,
 )
 
-st.sidebar.markdown(
-    """<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Flag_of_Switzerland.svg/2560px-Flag_of_Switzerland.svg.png' class='center' width='100'/>""",
-    unsafe_allow_html=True,
+st.markdown(
+    """
+    <style>
+        [data-testid=stSidebar] [data-testid=stImage]{
+            text-align: center;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+        }
+    </style>
+    """, unsafe_allow_html=True
 )
+with st.sidebar:
+    st.sidebar.image("data/shifters.png", width=150)
 
 st.sidebar.write(
     """
@@ -134,18 +149,21 @@ if option == 'Fiche technique':
 </div>
         """
     st.components.v1.html(html, height=340, width=800)
-    st.write("Si vous êtes intéressés d'en savoir plus, sélectionner l'onglet **Quelles mesures implémenter?** ou l'onglet ***Visualisation graphique***!")
+    st.write("Si vous êtes intéressés d'en savoir plus, sélectionner l'onglet ***Quelles mesures implémenter?*** ou l'onglet ***Visualisation graphique***!")
     
 elif option == 'Quelles mesures implémenter?':
 
     # Line Chart for CO2 Augmentation/Diminution
     st.subheader("Augmentation/Diminution des Emissions CO2 par secteur (%)")
     years_to_compare = st.multiselect("Sélectionner 2 dates pour comparer (le calcul du pourcentage se fait toujours par rapport à la date la plus récente):", list(range(1990, 2022)), default=[2020, 2021])
+    available_sectors = list(df_sector.columns)[2:]
+    sectors_to_display = st.multiselect("Sélectionner les secteurs à afficher:", available_sectors, default=available_sectors)
     if len(years_to_compare) == 2:
         years_to_compare.sort() 
         compare_data = df_sector[df_sector['Year'].isin(years_to_compare)]
         compare_data = compare_data.set_index('Year').transpose()
         compare_data['% Change'] = (compare_data[years_to_compare[1]] - compare_data[years_to_compare[0]]) / compare_data[years_to_compare[0]] * 100
+        compare_data = compare_data.loc[sectors_to_display]
         sector_to_improve = compare_data['% Change'].idxmax()
 
         fig_line = px.line(compare_data.reset_index(), x='index', y='% Change', title='Percentage Change in CO2 Emissions', labels={'index': 'Sector'})
@@ -176,8 +194,7 @@ elif option == 'Quelles mesures implémenter?':
     
     st.sidebar.write(
             """
-            Comme expliqué sur le site [Shift Ta Commune](https://www.theshifters.ch/shift-ta-commune) 
-            Les actions déclinées selon le type de communes (urbaines, rurales, montagnardes) sont sélectionnées dans les domaines suivants:
+            Comme expliqué sur le site [Shift Ta Commune](https://www.theshifters.ch/shift-ta-commune), les actions déclinées selon le type de communes (urbaines, rurales, montagnardes) sont sélectionnées dans les domaines suivants:
             - Bâtiments, logements, rénovations
             - Économie circulaire, utilisation de matériaux locaux, production locale d'aliments
             - Valorisation des déchets
@@ -198,14 +215,34 @@ else:
 
     filtered_data_sector = df_sector[(df_sector["Year"] >= year_range[0]) & (df_sector["Year"] <= year_range[1])]
     filtered_data_ghg = df_ghg[(df_ghg["Year"] >= year_range[0]) & (df_ghg["Year"] <= year_range[1])]
+    filtered_data_eco = df_eco[(df_eco["Year"] >= year_range[0]) & (df_eco["Year"] <= year_range[1])]
+    filtered_data_import = df_import[(df_import["Year"] >= year_range[0]) & (df_import["Year"] <= year_range[1])]
 
+    
     # Sector Emissions Graph
     st.subheader("Emissions CO2 en Suisse par Secteur (Million tons)")
     fig_sector = px.bar(filtered_data_sector, x='Year', y=list(df_sector.columns)[2:])
     st.plotly_chart(fig_sector)
 
     # Greenhouse Gas Types Graph
-    st.subheader("Emissions de Gaz à Effet de Serre en Suisse (Million tons)")
+    st.subheader("Emissions intérieures de Gaz à Effet de Serre en Suisse (Million tons)")
     fig_ghg = px.bar(filtered_data_ghg, x='Year', y=list(df_ghg.columns)[2:-1])
     st.plotly_chart(fig_ghg)
+
+    # Economic Emissions Graph
+    st.subheader("Emissions CO2 en Suisse par Secteur Economique (Million tons)")
+    fig_eco = px.bar(filtered_data_eco, x='Year', y=['Secteur tertiaire','Secteur secondaire','Secteur primaire'])
+    st.plotly_chart(fig_eco)
+    st.write("###### *Note: CO2 total, incl. biomasse*")
+
+    # Economic Emissions Graph
+    st.subheader("Emissions de Gaz à Effet de Serre en Suisse liées à l'Importation (Million tons)")
+    fig_import = px.bar(filtered_data_import, x='Year', y=['Émissions liées aux importations', 'Émissions intérieures'])
+    st.plotly_chart(fig_import)
+    st.write("###### *Note: La quantité totale de gaz à effet de serre émis pour satisfaire la demande finale de biens et de services en Suisse*")
+
+
+
+
+
 

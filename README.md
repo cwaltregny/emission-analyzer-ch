@@ -2,7 +2,7 @@
 
 ## Présentation
 
-Bienvenue dans l'application Streamlit développée par les Shifters Switzerland. Cette application vise à faciliter la visualisation et l'analyse des émissions de CO2 et d'autres gaz à effet de serre en Suisse de 1990 à 2021. Les données utilisées dans cette application proviennent de [l'Office Fédéral de la Statistique](https://www.bfs.admin.ch/bfs/fr/home/statistiques/espace-environnement/indicateurs-environnement/tous-les-indicateurs/emissions-et-dechets/emissions-gaz-effet-de-serre.html)
+Bienvenue dans l'application Streamlit développée par le groupe de travail Shift Ta Commune des Shifters Switzerland. Cette application vise à faciliter la visualisation et l'analyse des émissions de CO2 et d'autres gaz à effet de serre en Suisse de 1990 à 2021. Les données utilisées dans cette application proviennent de [l'Office Fédéral de la Statistique](https://www.bfs.admin.ch/bfs/fr/home/statistiques/espace-environnement/indicateurs-environnement/tous-les-indicateurs/emissions-et-dechets/emissions-gaz-effet-de-serre.html)
 
 ## Fonctionnalités
 

@@ -168,7 +168,7 @@ elif option == 'Quelles mesures implémenter?':
             Vous pouvez la consulter [à cette adresse]({link}). 
 
             Si vous êtes redirigés vers le site des Shifters Switzerland, c'est que la fiche que vous recherchez n'est pas encore finie.
-            Le groupe travaille dessus et sera mise par la suite.
+            Le groupe travaille dessus et sera mise en ligne par la suite.
 
             """)
     else:

@@ -63,7 +63,7 @@ if option == 'Fiche technique':
         Cette application a été créée par le groupe de travail [Shift Ta Commune](https://www.theshifters.ch/shift-ta-commune) des Shifters Switzerland. 
         Elle vise à montrer un exemple de visualisation interactive des données d'émissions d'une région (ici la Suisse).
 
-        **Notre objectif est de modifier cet outil pour fournir à chaque commune suisse qui le souhaite une visualisation d'ensemble de leurs émissions, afin d'aider dans la mise en place de mesures visant à leur diminution.**
+        **Notre objectif est de modifier cet outil pour fournir à chaque commune suisse qui le souhaite une visualisation d'ensemble de ses émissions, afin d'aider dans la mise en place de mesures visant à leur diminution.**
 
         Si vous êtes intéressé à adapter cet outil à vos données communales, veuillez contacter Shift Ta Commune [ici](https://www.theshifters.ch/shift-ta-commune).
         """

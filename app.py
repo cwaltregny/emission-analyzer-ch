@@ -4,7 +4,7 @@ import plotly.express as px
 
 df_sector = pd.read_csv("data/emission_sectors.csv")
 df_ghg = pd.read_csv("data/emission_gases.csv")
-df_eco = pd.read_csv("data/emission_economique.csv")
+df_eco = pd.read_csv("data/emission_economiques.csv")
 df_import = pd.read_csv("data/emission_importation.csv")
 df_eco.iloc[:,1:] = df_eco.iloc[:,1:].div(1000).astype('float')
 df_import.iloc[:,1:] = df_import.iloc[:,1:].div(1000).astype('float')
@@ -220,26 +220,30 @@ else:
 
     
     # Sector Emissions Graph
-    st.subheader("Emissions CO2 en Suisse par Secteur (Million tons)")
+    st.subheader("Emissions Gaz à Effet de Serre en Suisse par Secteur (Million tons eq-CO2)")
     fig_sector = px.bar(filtered_data_sector, x='Year', y=list(df_sector.columns)[2:])
     st.plotly_chart(fig_sector)
+    st.write("###### *Source*: [Emissions de gaz à effet de serre en Suisse. Evolution en équivalents CO2 et émissions par secteur](https://www.bfs.admin.ch/bfs/fr/home/statistiques/espace-environnement/indicateurs-environnement/tous-les-indicateurs/emissions-et-dechets/emissions-gaz-effet-de-serre.assetdetail.25085617.html)")
 
     # Greenhouse Gas Types Graph
-    st.subheader("Emissions intérieures de Gaz à Effet de Serre en Suisse (Million tons)")
+    st.subheader("Emissions intérieures de Gaz à Effet de Serre en Suisse (Million tons eq-CO2)")
     fig_ghg = px.bar(filtered_data_ghg, x='Year', y=list(df_ghg.columns)[2:-1])
     st.plotly_chart(fig_ghg)
+    st.write("###### *Source*: [Emissions de gaz à effet de serre en Suisse. Evolution en équivalents CO2 et émissions par secteur](https://www.bfs.admin.ch/bfs/fr/home/statistiques/espace-environnement/indicateurs-environnement/tous-les-indicateurs/emissions-et-dechets/emissions-gaz-effet-de-serre.assetdetail.25085617.html)")
 
     # Economic Emissions Graph
-    st.subheader("Emissions CO2 en Suisse par Secteur Economique (Million tons)")
+    st.subheader("Emissions Gaz à Effet de Serre en Suisse par Secteur Economique (Million tons eq-CO2)")
     fig_eco = px.bar(filtered_data_eco, x='Year', y=['Secteur tertiaire','Secteur secondaire','Secteur primaire'])
     st.plotly_chart(fig_eco)
-    st.write("###### *Note: CO2 total, incl. biomasse*")
+    st.write("###### *Note: Total gaz à effet de serre, incl. CO2 biomasse*")
+    st.write("###### *Source*: [Comptes des émissions dans l'air des ménages et de l'économie, par secteurs économiques](https://www.bfs.admin.ch/bfs/fr/home/statistiques/espace-environnement/indicateurs-environnement/tous-les-indicateurs/emissions-et-dechets/emissions-gaz-effet-de-serre.assetdetail.27705285.html)")
 
     # Economic Emissions Graph
-    st.subheader("Emissions de Gaz à Effet de Serre en Suisse liées à l'Importation (Million tons)")
+    st.subheader("Emissions de Gaz à Effet de Serre en Suisse liées à l'Importation (Million tons eq-CO2)")
     fig_import = px.bar(filtered_data_import, x='Year', y=['Émissions liées aux importations', 'Émissions intérieures'])
     st.plotly_chart(fig_import)
     st.write("###### *Note: La quantité totale de gaz à effet de serre émis pour satisfaire la demande finale de biens et de services en Suisse*")
+    st.write("###### *Source*: [Empreinte gaz à effet de serre – Émissions de gaz à effet de serre induites par la demande intérieure finale – Millions de tonnes d'équivalents CO2](https://www.bfs.admin.ch/bfs/fr/home/statistiques/espace-environnement/indicateurs-environnement/tous-les-indicateurs/emissions-et-dechets/emissions-gaz-effet-de-serre.assetdetail.27705362.html)")
 
 
 

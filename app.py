@@ -170,7 +170,7 @@ elif option == 'Quelles mesures implémenter?':
         st.plotly_chart(fig_line)
         if sector_to_improve == 'Services (bâtiments)':
             link = "https://kdrive.infomaniak.com/app/drive/591131/files/3455/preview/pdf/3515"
-        elif sector_to_improve == 'Ménage (bâtiments)':
+        elif sector_to_improve == 'Ménages (bâtiments)':
             link = "https://kdrive.infomaniak.com/app/drive/591131/files/3455/preview/pdf/3515"
         elif sector_to_improve == 'Agriculture':
             link = "https://kdrive.infomaniak.com/app/drive/591131/files/3455/preview/pdf/3512"

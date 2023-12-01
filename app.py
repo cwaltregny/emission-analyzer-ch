@@ -174,7 +174,7 @@ elif option == 'Quelles mesures implémenter?':
             link = "https://kdrive.infomaniak.com/app/drive/591131/files/3455/preview/pdf/3515"
         elif sector_to_improve == 'Agriculture':
             link = "https://kdrive.infomaniak.com/app/drive/591131/files/3455/preview/pdf/3512"
-        elif sector_to_improve == 'Transport':
+        elif sector_to_improve == 'Transports':
             link = "https://kdrive.infomaniak.com/app/drive/591131/files/3455/preview/pdf/3514"
         else:
             link = "https://www.theshifters.ch/shift-ta-commune"

@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import streamlit.components.v1 as components
+
 
 df_sector = pd.read_csv("data/emission_sectors.csv")
 df_ghg = pd.read_csv("data/emission_gases.csv")
@@ -71,7 +73,7 @@ if option == 'Fiche technique':
     st.markdown("### **Fiche Technique de la Suisse**")
 
     # Using HTML and CSS to create a structured and visually appealing box to display the data
-    html = """
+    components.html("""
 <div style="
     display: flex;
     gap: 20px;
@@ -147,8 +149,7 @@ if option == 'Fiche technique':
         </div>
     </div>
 </div>
-        """
-    st.components.html(html, height=340, width=800)
+        """, height=340, width=800)
     st.write("Si vous êtes intéressés d'en savoir plus, sélectionner l'onglet ***Quelles mesures implémenter?*** ou l'onglet ***Visualisation graphique***!")
     
 elif option == 'Quelles mesures implémenter?':

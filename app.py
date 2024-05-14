@@ -148,6 +148,7 @@ if option == 'Fiche technique':
     </div>
 </div>
         """
+    st.components.html(html, height=340, width=800)
     st.write("Si vous êtes intéressés d'en savoir plus, sélectionner l'onglet ***Quelles mesures implémenter?*** ou l'onglet ***Visualisation graphique***!")
     
 elif option == 'Quelles mesures implémenter?':
